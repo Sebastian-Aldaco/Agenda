@@ -9,11 +9,11 @@ public class Contacto {
     public String telefono;
     public String correo;
     public String direccion;
-    public Integer AñoNacimiento;
+    public Integer anioNacimiento;
     public String telefonoDeEmergencia;
 
 
-// atributos publicos
+// atributos publicos , cambiar a privado si es necesario
 
 
 
