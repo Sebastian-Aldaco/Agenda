@@ -55,6 +55,7 @@ public class Agenda {
 
     public void setTamanoMaximo(Contacto _contacto){
 
+     /**
      * Método constructor indicando el tamaño máximo
      *
      * @param _tamanoMaximo Número de contactos maximo que se almacenaran en el arreglo de contactos
@@ -113,7 +114,7 @@ public class Agenda {
     public boolean existeContacto(Contacto _contacto){
         if(_contacto == null)return false;
         for(int i = 0; i < contadorContactos; i++){
-            if(contacotos[i] != null && contacotos[i].equals(_contacto)){
+            if(contactos[i] != null && contactos[i].equals(_contacto)){
                 return true;
             }
         }
@@ -180,7 +181,7 @@ public class Agenda {
     public  void buscarContacto(String nombre, String apellidoMaterno, String apellidoPaterno){
         boolean encontrado = false;
 
-        for (Contacto c : contacotos) {
+        for (Contacto c : contactos) {
             if (c.getNombre().equalsIgnoreCase(nombre) &&
                     (c.getApellidoMaterno().equalsIgnoreCase(apellidoMaterno) && (c.getApellidoPaterno().equalsIgnoreCase(apellidoPaterno)))){
                 System.out.println("--- Contacto encontrado ---");
@@ -291,16 +292,6 @@ public class Agenda {
         if (!encontrado) {
             System.out.println(" No se encontró ningún contacto con el nombre: " + nombre + " " + apellido);
         }
-    /**
-     * Método para modificar un contacto de la agenda el cual devera validarse primeramente que exista
-     *
-     * @param nombre        valor del nombre del contacto que se decea modificar
-     * @param apellido      valor del apellido del contacto que se decea modificar
-     * @param nuevoTelefono valor del nuevo teléfono del contacto
-     */
-    public void modificarTelefono(String nombre, String apellido, String nuevoTelefono) {
-        return;
-    }
 
     /**
      * Método para validar si la agenda esta llena
