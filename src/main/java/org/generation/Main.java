@@ -1,5 +1,6 @@
-package org.generation;
 
+<<<<<<< HEAD
+=======
 public class Main {
     public static void main(String[] args) {
         /// 1. Creamos la agenda base para el sistema
@@ -60,3 +61,4 @@ public class Main {
 
     }
 }
+>>>>>>> origin/main
