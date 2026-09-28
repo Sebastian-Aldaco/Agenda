@@ -5,10 +5,6 @@ import java.util.Comparator;
 
 public class Agenda {
 
-    private Contacto[] contactos;
-    private int tamanioMaximo;
-    private int contadorContactos;
-
     // =====================================================
     // PARTE DE ROSARIO
     // listarContactos() + eliminarContacto()
@@ -22,22 +18,20 @@ public class Agenda {
      * Nombre ApellidoPaterno ApellidoMaterno - Teléfono
      */
     public void listarContactos() {
-
-        // Verificamos si la agenda está vacía.
-        if (contactos == null || contadorContactos == 0) {
+        // Comprobamos si realmente existen contactos.
+        if (contactos == null || contadorcontactos == 0) {
             System.out.println("La agenda no tiene contactos.");
             return;
         }
         /*
-         * Ordenamos solamente las posiciones del arreglo
-         * que contienen contactos.
-         * Esto evita ordenar las posiciones null que todavía
-         * están disponibles en la agenda.
+         * Ordenamos solamente la parte ocupada del arreglo.
+         * Desde la posición 0 hasta contadorcontactos.
+         * De esta manera no intentamos ordenar las posiciones null.
          */
         Arrays.sort(
                 contactos,
                 0,
-                contadorContactos,
+                contadorcontactos,
                 Comparator.comparing(
                         Contacto::getNombre,
                         String.CASE_INSENSITIVE_ORDER
@@ -50,8 +44,8 @@ public class Agenda {
                 )
         );
 
-        // Recorremos únicamente los contactos existentes.
-        for (int i = 0; i < contadorContactos; i++) {
+        // Mostramos únicamente los contactos existentes.
+        for (int i = 0; i < contadorcontactos; i++) {
             Contacto contacto = contactos[i];
             System.out.println(
                     contacto.getNombre() + " "
@@ -62,53 +56,69 @@ public class Agenda {
         }
     }
 
+    /**
+     * Método para buscar un contacto por nombre.
+     * NOTA:
+     * Se mantiene temporalmente la implementación recibida
+     * de los compañeros.
+     *
+     * @param nombre nombre que se desea buscar
+     * @return contacto encontrado o null
+     */
+    public Contacto buscaContacto(String nombre) {
+        return null;
+    }
 
     /**
      * Elimina un contacto de la agenda.
-     * Se utiliza equals() de la clase Contacto para determinar
-     * si el contacto almacenado es igual al contacto recibido.
-     * Después de eliminarlo, los contactos posteriores se
-     * desplazan una posición hacia la izquierda para evitar
-     * espacios vacíos dentro del arreglo.
+     * Se utiliza equals() de Contacto para determinar si el
+     * contacto almacenado coincide con el contacto recibido.
+     * Después de eliminarlo se recorren hacia la izquierda
+     * los elementos posteriores para evitar espacios vacíos
+     * dentro del arreglo.
      *
      * @param contacto contacto que se desea eliminar
      */
     public void eliminarContacto(Contacto contacto) {
-        // Verificamos que el contacto recibido sea válido.
+
+        // Validamos el parámetro recibido.
         if (contacto == null) {
             System.out.println("El contacto no es válido.");
             return;
         }
-        // Verificamos si la agenda está vacía.
-        if (contactos == null || contadorContactos == 0) {
+        // Comprobamos si la agenda está vacía.
+        if (contactos == null || contadorcontactos == 0) {
             System.out.println("La agenda no tiene contactos.");
             return;
         }
-        // Buscamos únicamente entre los contactos existentes.
-        for (int i = 0; i < contadorContactos; i++) {
+        // Buscamos solamente entre las posiciones ocupadas.
+        for (int i = 0; i < contadorcontactos; i++) {
             /*
-             * equals() ya está implementado en Contacto.java.
-             * Por eso no necesitamos volver a comparar aquí
-             * nombre y apellidos manualmente.
+             * equals() pertenece a Contacto.java.
+             * Si está implementado correctamente, aquí no tenemos
+             * que repetir la comparación de nombre y apellidos.
              */
             if (contactos[i].equals(contacto)) {
                 /*
-                 * Movemos hacia la izquierda todos los contactos
-                 * que están después del contacto eliminado.
+                 * Desplazamos hacia la izquierda todos los contactos
+                 * posteriores al que eliminamos.
                  */
-                for (int j = i; j < contadorContactos - 1; j++) {
+                for (int j = i; j < contadorcontactos - 1; j++) {
                     contactos[j] = contactos[j + 1];
                 }
-                // Disminuimos la cantidad real de contactos.
-                contadorContactos--;
-                // Dejamos libre la última posición ocupada.
-                contactos[contadorContactos] = null;
-                System.out.println("Contacto eliminado correctamente.");
+                // Ahora existe un contacto menos.
+                contadorcontactos--;
+                // Liberamos la última posición que estaba ocupada.
+                contactos[contadorcontactos] = null;
+                System.out.println(
+                        "Contacto eliminado correctamente."
+                );
                 return;
             }
         }
-        // Si terminó el ciclo y no hubo coincidencia.
-        System.out.println("El contacto no existe en la agenda.");
+        // El ciclo terminó sin encontrar coincidencias.
+        System.out.println(
+                "El contacto no existe en la agenda."
+        );
     }
-
 }
