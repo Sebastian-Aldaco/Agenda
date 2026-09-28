@@ -86,5 +86,7 @@ public class Menu {
             case 8 -> System.out.println("👋 ¡Hasta luego!");
             default -> System.out.println("⚠️ Opción no válida. Intenta de nuevo.");
 
-public class Menu {
+
+        }
+    }
 }
