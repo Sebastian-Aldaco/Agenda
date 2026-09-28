@@ -1,10 +1,12 @@
 package org.generation;
 
 import java.security.PublicKey;
+import java.util.Arrays;
 
 public class Agenda {
     private Contacto [] contacotos;
-    private int tamañoMaximo;
+    private int tamanoMaximo;
+    private int contadorContactos;//Numero real de contactos en agenda
 
     /**
      * Metodo constructor por defecto
@@ -14,11 +16,11 @@ public class Agenda {
     /**
      * Método constructor para crear agenda y el tamaño maximo de la agenda
      * @param _contactos Arreglo vacío que almacenara los contactos
-     * @param _tamañoMaximo Número de contactos maximo que se almacenaran en el arreglo de contactos
+     * @param _tamanoMaximo Número de contactos maximo que se almacenaran en el arreglo de contactos
      */
-    public Agenda(Contacto [] _contactos, int _tamañoMaximo){
+    public Agenda(Contacto [] _contactos, int _tamanoMaximo){
         this.contacotos = _contactos;
-        this.tamañoMaximo = _tamañoMaximo;
+        this.tamanoMaximo = _tamanoMaximo;
     }
 
     /**
@@ -26,7 +28,6 @@ public class Agenda {
      * @param _contacto objeto de tipo contactos que viene desde la clase main con los datos del contacto a almacenar
      */
     public void añadirContacto(Contacto _contacto){
-
     }
 
     /**
@@ -35,7 +36,13 @@ public class Agenda {
      * @return devuelve true si el contacto ya exite almacenado en la agenda o false si el contacto no existe en la agenda
      */
     public boolean existeContacto(Contacto _contacto){
-
+        if(_contacto == null)return false;
+        for(int i = 0; i < contadorContactos; i++){
+            if(contacotos[i] != null && contacotos[i].equals(_contacto)){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -48,12 +55,29 @@ public class Agenda {
     /**
      * Método para buscar un contacto dentro de la agenda por nombre y apellido
      * @param nombre valor del nombre que se buscara dentro de la agenda
-     * @param apellido valor del apellido que se buscara dentro de la agenda
+     * @param apellidoMaterno valor del apellido que se buscara dentro de la agenda
      * @return si encuentra el contacto devolvera un objeto de tipo contacto con todos sus datos y en caso contrario
      * devolvera un mensaje confirmando que no se encontro ningun contacto con los datos proporcionados
      */
-    public Contacto buscarContacto(String nombre, String apellido){
+    public  void buscarContacto(String nombre, String apellidoMaterno, String apellidoPaterno){
+        boolean encontrado = false;
 
+        for (Contacto c : contacotos) {
+            if (c.getNombre().equalsIgnoreCase(nombre) &&
+                    (c.getApellidoMaterno().equalsIgnoreCase(apellidoMaterno) && (c.getApellidoPaterno().equalsIgnoreCase(apellidoPaterno)))){
+                System.out.println("--- Contacto encontrado ---");
+                System.out.println("Nombre: " + c.getNombre());
+                System.out.println("ApellidoMaterno: " + c.getApellidoMaterno());
+                System.out.println("ApellidoPaterno: " + c.getApellidoPaterno());
+                System.out.println("Teléfono: " + c.getTelefono());
+                encontrado = true;
+                break; // Una vez encontrado, detenemos la búsqueda
+            }
+        }
+
+        if (!encontrado) {
+            System.out.println("No se encontró ningún contacto con el nombre: " + nombre);
+        }
     }
 
     /**
@@ -79,9 +103,7 @@ public class Agenda {
      * Método para validar si la agenda esta llena
      * @return devuelve true si la agenda está llena o false si la agenda aún tien espacios para almacenar más contactos
      */
-    public boolean agendaLlena(){
-
-    }
+    public boolean agendaLlena(){return false;}
 
     /**
      * Método para validar cuantos espacios libres tiene la agenda si retorna un numero mayor que cero
@@ -89,6 +111,7 @@ public class Agenda {
      * @return
      */
     public  int espaciosLibres(){
-
+    return 1;
     }
 }
+

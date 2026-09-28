@@ -55,7 +55,7 @@ public class Menu {
                 String nom = scanner.nextLine();
                 System.out.print("Apellido: ");
                 String ape = scanner.nextLine();
-                agenda.existeContacto(new Contacto(nom, ape, ""));
+                agenda.existeContacto(new Contacto(nom, ape));
             }
             case 3 -> agenda.listarContactos();
             case 4 -> {
