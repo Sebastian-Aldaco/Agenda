@@ -48,7 +48,7 @@ public class Menu {
                 String ape = scanner.nextLine();
                 System.out.print("Teléfono: ");
                 String tel = scanner.nextLine();
-                agenda.añadirContacto(new Contacto(nom, ape, tel));
+                agenda.anadirContacto(new Contacto(nom, ape, tel));
             }
             case 2 -> {
                 System.out.print("Nombre: ");
@@ -86,5 +86,7 @@ public class Menu {
             case 8 -> System.out.println("👋 ¡Hasta luego!");
             default -> System.out.println("⚠️ Opción no válida. Intenta de nuevo.");
 
-public class Menu {
+
+        }
+    }
 }
