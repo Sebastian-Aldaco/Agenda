@@ -1,4 +1,5 @@
 package org.generation;
+import java.security.PublicKey;
 
 public class Agenda {
     private Contacto [] contactos;
