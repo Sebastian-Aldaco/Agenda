@@ -22,7 +22,7 @@ public class Contacto {
 
     // en poo suelen los placeholders tener el mismo nombre que el atributo
 
-
+// Constructor principal de 8 campos
     public Contacto(String nombre, String apellidoPaterno , String apellidoMaterno, String telefono, String correo,
                     String direccion, Integer anioNacimiento, String telefonoDeEmergencia) {
 
@@ -37,6 +37,17 @@ public class Contacto {
 
     }
 
+    // Constructor que recibe 3 argumentos para el Menú.java
+public Contacto(String nombre, String apellidoPaterno, String telefono){
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = "";
+        this.telefono = telefono;
+        this.correo = "";
+        this.direccion = "";
+        this.anioNacimiento = 0;
+        this.telefonoDeEmergencia = "";
+}
 
     //Getter and setter
 
@@ -107,6 +118,28 @@ public class Contacto {
 
     public void showDetails(){
     } //metodo para mostrar la información de la Agenda.
+
+
+    // Validación duplicados
+    @Override
+    public boolean equals(Object obj){
+        if(this == obj) return true;
+        if(obj == null || getClass() != obj.getClass()) return false;
+        Contacto contacto = (Contacto) obj;
+        return nombre.equalsIgnoreCase(contacto.nombre) &&
+                apellidoPaterno.equalsIgnoreCase(contacto.apellidoPaterno) &&
+                apellidoMaterno.equalsIgnoreCase(contacto.apellidoMaterno);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                nombre != null ? nombre.toLowerCase() : "",
+                apellidoPaterno != null ? apellidoPaterno.toLowerCase() : "",
+                apellidoMaterno != null ? apellidoMaterno.toLowerCase() : ""
+        );
+    }
+
 }
 
 
