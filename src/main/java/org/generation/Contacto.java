@@ -120,6 +120,7 @@ public Contacto(String nombre, String apellidoPaterno, String telefono){
     } //metodo para mostrar la información de la Agenda.
 
 
+
     // Validación duplicados
     @Override
     public boolean equals(Object obj){
