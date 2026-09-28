@@ -3,13 +3,19 @@ package org.generation;
 import java.security.PublicKey;
 
 public class Agenda {
-    private Contacto [] contacotos;
+    private Contacto [] contactos;
     private int tamañoMaximo;
+    private int contadorContactos; // Para ubicar la posición
 
     /**
      * Metodo constructor por defecto
      */
-    public Agenda(){}
+    public Agenda(){
+        // Tamaño por defecto
+        this.tamañoMaximo = 10;
+        this.contactos = new Contacto[tamañoMaximo];
+        this.contadorContactos = 0;
+    }
 
     /**
      * Método constructor para crear agenda y el tamaño maximo de la agenda
@@ -17,7 +23,7 @@ public class Agenda {
      * @param _tamañoMaximo Número de contactos maximo que se almacenaran en el arreglo de contactos
      */
     public Agenda(Contacto [] _contactos, int _tamañoMaximo){
-        this.contacotos = _contactos;
+        this.contactos = _contactos;
         this.tamañoMaximo = _tamañoMaximo;
     }
 
@@ -92,3 +98,22 @@ public class Agenda {
 
     }
 }
+
+/*
+* public void addContacto(Contacto c){
+    // Verifica si hay espacio
+    if (agendaLlena){
+        return;
+    }
+
+    // Validación de duplicados
+    if (existeContacto(c)){
+        System.out.println("No se puede añadir, el contacto ya existe en la agenda.");
+        return;
+    }
+
+    // Arreglo
+    contactos[contadorContactos] = c;
+    contadorContactos++;
+    System.out.println("Contacto añadido exitosamente.");
+}*/

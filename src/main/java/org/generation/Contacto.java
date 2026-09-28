@@ -1,6 +1,8 @@
 package org.generation;
 
 
+import java.util.Objects;
+
 public class Contacto {
 //Se declara la clase Contacto con sus respectivos atributos a trabajar para la agenda.
 
@@ -105,6 +107,23 @@ public class Contacto {
 
     public void showDetails(){
     } //metodo para mostrar la información de la Agenda.
+
+
+    // Detección de duplicados
+    @Override
+    public boolean equals(Object obj){
+        if(this == obj) return true;
+        if(obj == null || getClass() != obj.getClass()) return false;
+        Contacto contacto = (Contacto) obj;
+        return nombre.equalsIgnoreCase(contacto.nombre) &&
+                apellidoPaterno.equalsIgnoreCase(contacto.apellidoPaterno) &&
+                getApellidoMaterno().equalsIgnoreCase(contacto.apellidoMaterno);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre.toLowerCase(), apellidoPaterno.toLowerCase(), apellidoMaterno.toLowerCase());
+    }
 }
 
 
