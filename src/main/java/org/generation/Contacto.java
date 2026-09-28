@@ -1,6 +1,5 @@
 package org.generation;
 
-
 public class Contacto {
 //Se declara la clase Contacto con sus respectivos atributos a trabajar para la agenda.
 
@@ -106,7 +105,6 @@ public class Contacto {
     public void showDetails(){
     } //metodo para mostrar la información de la Agenda.
 }
-
 
 
 
