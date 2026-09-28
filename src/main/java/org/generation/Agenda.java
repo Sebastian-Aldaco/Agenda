@@ -1,9 +1,11 @@
 package org.generation;
+import java.security.PublicKey;
+
 
 public class Agenda {
     private Contacto[] contactos;
     private int tamanoMaximo;
-    private int contadorcontactos; // Para ubicar la posición
+    private int contadorContactos; // Para ubicar la posición
 
     /**
      * Metodo constructor por defecto
@@ -11,10 +13,25 @@ public class Agenda {
     public Agenda() {
         this.tamanoMaximo = 10;   // Tamaño por defecto
         this.contactos = new Contacto[tamanoMaximo];
-        this.contadorcontactos = 0;
+        this.contadorContactos = 0;
     }
 
     /**
+     * Método constructor para crear agenda y el tamaño maximo de la agenda
+     * @param _contactos Arreglo vacío que almacenara los contactos
+     * @param _tamanoMaximo Número de contactos maximo que se almacenaran en el arreglo de contactos
+     */
+    public Agenda(Contacto [] _contactos, int _tamanoMaximo){
+        this.contactos = _contactos;
+        this.tamanoMaximo = _tamanoMaximo;
+    }
+
+    /**
+     * Método para almacenar un contacto nuevo en la agenda de contactos(arreglo contactos)
+     * @param _contacto objeto de tipo contactos que viene desde la clase main con los datos del contacto a almacenar
+     */
+    public void setTamanoMaximo(Contacto _contacto){
+
      * Método constructor indicando el tamaño máximo
      *
      * @param _tamanoMaximo Número de contactos maximo que se almacenaran en el arreglo de contactos
@@ -22,11 +39,11 @@ public class Agenda {
     public Agenda(int _tamanoMaximo) {
         this.tamanoMaximo = _tamanoMaximo;
         this.contactos = new Contacto[_tamanoMaximo];
-        this.contadorcontactos = 0;
+        this.contadorContactos = 0;
     }
 
     /**
-     * Método para almacenar un contacto nuevo en la agenda de coontactos(arregolo contactos)
+     * Método para almacenar un contacto nuevo en la agenda de coontactos(arreglo contactos)
      *
      * @param _contacto objeto de tipo contactos que viene desde la clase main con los datos del contacto a almacenar
      */
@@ -57,10 +74,10 @@ public class Agenda {
         }
 
         // Se agrega contacto
-        contactos[contadorcontactos] = _contacto; // Guarda el contacto en la posición libre actual
-        contadorcontactos++;
+        contactos[contadorContactos] = _contacto; // Guarda el contacto en la posición libre actual
+        contadorContactos++;
         System.out.println("Contacto añadido exitosamente.");
-    }
+    } 
 
     /**
      * Método para validar si un contacto ya existe dentro de la agenda de contactos
@@ -102,6 +119,34 @@ public class Agenda {
     public void eliminarContacto(Contacto contacto) {
     }
 
+    /** Anahi
+     * Método para modificar un contacto de la agenda, deberá validarse primeramente que exista
+     * @param nombre    valor del nombre del contacto que se desea modificar
+     * @param apellido valor del apellido del contacto que se desea modificar
+     * @param nuevoTelefono valor del nuevo teléfono del contacto
+     */
+    public void modificarTelefono(String nombre, String apellido, String nuevoTelefono){
+        if (this.contactos == null) {
+            System.out.println(" La agenda no tiene contactos registrados.");
+            return;
+        }
+
+        boolean encontrado = false;
+
+        for (Contacto c : this.contactos) {
+            if (c != null && c.getNombre() != null && c.getApellidoPaterno() != null) {
+                if (c.getNombre().equalsIgnoreCase(nombre) && c.getApellidoPaterno().equalsIgnoreCase(apellido)) {
+                    c.setTelefono(nuevoTelefono);
+                    System.out.println(" Teléfono actualizado con éxito para " + nombre + " " + apellido + ": " + nuevoTelefono);
+                    encontrado = true;
+                    break;
+                }
+            }
+        }
+
+        if (!encontrado) {
+            System.out.println(" No se encontró ningún contacto con el nombre: " + nombre + " " + apellido);
+        }
     /**
      * Método para modificar un contacto de la agenda el cual devera validarse primeramente que exista
      *
@@ -115,11 +160,33 @@ public class Agenda {
 
     /**
      * Método para validar si la agenda esta llena
+     * @return devuelve true si la agenda está llena o false si la agenda aún tiene espacios para almacenar más contactos
+     */
+    public boolean agendaLlena(){
+        if (this.contactos == null) {
+            System.out.println("️ La agenda no está inicializada o no tiene espacio ocupado.");
+            return false;
+        }
+
+        int cont = 0;
+        for (Contacto c : this.contactos) {
+            if (c != null) {
+                cont++;
+            }
+        }
+
+        if (cont >= this.tamanoMaximo) {
+            System.out.println("⚠️ La agenda está llena. No hay espacio disponible para nuevos contactos.");
+            return true;
+        } else {
+            System.out.println(" La agenda aún tiene espacio disponible.");
+            return false;
+        }
      *
      * @return devuelve true si la agenda está llena o false si la agenda aún tien espacios para almacenar más contactos
      */
     public boolean agendaLlena() {
-        return contadorcontactos >= tamanoMaximo;
+        return contadorContactos >= tamanoMaximo;
     }
 
     /**
@@ -128,7 +195,23 @@ public class Agenda {
      *
      * @return
      */
+    public int espaciosLibres(){
+        if (this.contactos == null) {
+            System.out.println(" Espacios disponibles en la agenda: " + this.tamanoMaximo + " de " + this.tamanoMaximo);
+            return this.tamanoMaximo;
+        }
+
+        int cont = 0;
+        for (Contacto c : this.contactos) {
+            if (c != null) {
+                cont++;
+            }
+        }
+
+        int libres = this.tamanoMaximo - cont;
+        System.out.println(" Espacios disponibles en la agenda: " + libres + " de " + this.tamanoMaximo);
+        return libres;
     public int espacioLibres() {
-        return tamanoMaximo - contadorcontactos;
+        return tamanoMaximo - contadorContactos;
     }
 }
