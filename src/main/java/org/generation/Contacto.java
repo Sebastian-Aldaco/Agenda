@@ -1,4 +1,4 @@
 package org.generation;
 
-public class Contaco {
+public class Contacto {
 }
