@@ -55,7 +55,11 @@ public class Menu {
                 String nom = scanner.nextLine();
                 System.out.print("Apellido: ");
                 String ape = scanner.nextLine();
-                agenda.existeContacto(new Contacto(nom, ape));
+                if (agenda.existeContacto(nom, ape)) {
+                    System.out.println("El contacto existe en la agenda.");
+                } else {
+                    System.out.println("El contacto no existe en la agenda.");
+                }
             }
             case 3 -> agenda.listarContactos();
             case 4 -> {
@@ -68,7 +72,7 @@ public class Menu {
                 String nom = scanner.nextLine();
                 System.out.print("Apellido: ");
                 String ape = scanner.nextLine();
-                agenda.eliminarContacto(new Contacto(nom, ape, ""));
+                agenda.eliminarContacto(nom, ape);
             }
             case 6 -> {
                 System.out.print("Nombre: ");
@@ -80,8 +84,12 @@ public class Menu {
                 agenda.modificarTelefono(nom, ape, nuevoTel);
             }
             case 7 -> {
-                agenda.agendaLlena();
-                agenda.espacioLibres();
+                if (agenda.agendaLlena()) {
+                    System.out.println("La agenda está llena.");
+                } else {
+                    System.out.println("La agenda aún tiene espacio disponible.");
+                }
+                System.out.println("Espacios disponibles: " + agenda.espacioLibres());
             }
             case 8 -> System.out.println("👋 ¡Hasta luego!");
             default -> System.out.println("⚠️ Opción no válida. Intenta de nuevo.");

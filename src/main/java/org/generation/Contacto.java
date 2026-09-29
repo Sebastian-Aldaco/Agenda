@@ -127,9 +127,9 @@ public Contacto(String nombre, String apellidoPaterno, String telefono){
         if(this == obj) return true;
         if(obj == null || getClass() != obj.getClass()) return false;
         Contacto contacto = (Contacto) obj;
-        return nombre.equalsIgnoreCase(contacto.nombre) &&
-                apellidoPaterno.equalsIgnoreCase(contacto.apellidoPaterno) &&
-                apellidoMaterno.equalsIgnoreCase(contacto.apellidoMaterno);
+        return (nombre == null ? contacto.nombre == null : nombre.equalsIgnoreCase(contacto.nombre)) &&
+                (apellidoPaterno == null ? contacto.apellidoPaterno == null : apellidoPaterno.equalsIgnoreCase(contacto.apellidoPaterno)) &&
+                (apellidoMaterno == null ? contacto.apellidoMaterno == null : apellidoMaterno.equalsIgnoreCase(contacto.apellidoMaterno));
     }
 
     @Override
@@ -142,7 +142,6 @@ public Contacto(String nombre, String apellidoPaterno, String telefono){
     }
 
 }
-
 
 
 
