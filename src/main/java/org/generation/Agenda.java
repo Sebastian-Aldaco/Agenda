@@ -113,6 +113,66 @@ public class Agenda {
         return false;
     }
 
+    public Contacto[] obtenerContactos() {
+        return Arrays.copyOf(contactos, contadorContactos);
+    }
+
+    public int getTamanoMaximo() {
+        return tamanoMaximo;
+    }
+
+    public boolean agregarContacto(Contacto contacto) {
+        if (!esValido(contacto) || agendaLlena() || existeContacto(contacto)) {
+            return false;
+        }
+
+        contactos[contadorContactos++] = contacto;
+        return true;
+    }
+
+    public boolean actualizarContacto(Contacto original, Contacto actualizado) {
+        if (!esValido(actualizado) || original == null) {
+            return false;
+        }
+
+        int indiceOriginal = -1;
+        for (int i = 0; i < contadorContactos; i++) {
+            if (contactos[i] == original) {
+                indiceOriginal = i;
+                break;
+            }
+        }
+        if (indiceOriginal < 0) {
+            return false;
+        }
+
+        for (int i = 0; i < contadorContactos; i++) {
+            if (i != indiceOriginal && contactos[i].equals(actualizado)) {
+                return false;
+            }
+        }
+
+        copiarDatos(actualizado, contactos[indiceOriginal]);
+        return true;
+    }
+
+    public boolean quitarContacto(Contacto contacto) {
+        if (contacto == null) {
+            return false;
+        }
+
+        for (int i = 0; i < contadorContactos; i++) {
+            if (contactos[i] == contacto) {
+                for (int j = i; j < contadorContactos - 1; j++) {
+                    contactos[j] = contactos[j + 1];
+                }
+                contactos[--contadorContactos] = null;
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Muestra en pantalla todos los contactos almacenados en la agenda, con sus respectivos datos
      */
@@ -264,6 +324,23 @@ public class Agenda {
 
     private boolean coincide(String valor, String busqueda) {
         return valor != null && busqueda != null && valor.equalsIgnoreCase(busqueda);
+    }
+
+    private boolean esValido(Contacto contacto) {
+        return contacto != null
+                && contacto.getNombre() != null && !contacto.getNombre().trim().isEmpty()
+                && contacto.getApellidoPaterno() != null && !contacto.getApellidoPaterno().trim().isEmpty();
+    }
+
+    private void copiarDatos(Contacto origen, Contacto destino) {
+        destino.setNombre(origen.getNombre());
+        destino.setApellidoPaterno(origen.getApellidoPaterno());
+        destino.setApellidoMaterno(origen.getApellidoMaterno());
+        destino.setTelefono(origen.getTelefono());
+        destino.setCorreo(origen.getCorreo());
+        destino.setDireccion(origen.getDireccion());
+        destino.setAnioNacimiento(origen.getAnioNacimiento());
+        destino.setTelefonoDeEmergencia(origen.getTelefonoDeEmergencia());
     }
 
     private void mostrarContacto(Contacto contacto) {
